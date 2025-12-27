@@ -5,7 +5,7 @@
     "moduleResolution": "bundler",
     "allowJs": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
     "isolatedModules": true,
     "jsx": "preserve",
     "verbatimModuleSyntax": true

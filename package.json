@@ -1,9 +1,9 @@
 {
-  "name": "@sledge/core",
+  "name": "@sledge-pdm/misc",
   "version": "0.0.0",
-  "private": true,
+  "private": false,
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": true,
   "exports": {
     ".": "./index.ts"
   },
