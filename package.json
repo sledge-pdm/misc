@@ -1,6 +1,6 @@
 {
   "name": "@sledge-pdm/core",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "type": "module",
   "sideEffects": true,
@@ -16,7 +16,8 @@
     "dev": "",
     "build": "",
     "prettier": "prettier --write . --config .prettierrc",
-    "format": "pnpm prettier"
+    "format": "pnpm prettier",
+    "wasm:build": "wasm-pack build ./src/wasm --target bundler && rm ./src/wasm/pkg/.gitignore && rm ./src/wasm/pkg/package.json"
   },
   "publishConfig": {
     "access": "public",

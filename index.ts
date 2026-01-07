@@ -1,3 +1,6 @@
+// buffer
+export * from './src/buffer/RawPixelData';
+
 // color
 export * from './src/color/RGBA';
 
