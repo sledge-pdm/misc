@@ -23,20 +23,20 @@ export function toUint8ClampedArray(buffer: RawPixelData): Uint8ClampedArray {
 export function rawToWebp(buffer: RawPixelData, width: number, height: number): Uint8Array {
   const uint8Buffer = new Uint8Array(buffer.buffer);
   const webpBuffer = raw_to_webp(uint8Buffer, width, height);
-  return new Uint8Array(webpBuffer.buffer);
+  return webpBuffer;
 }
 
 export function webpToRaw(buffer: Uint8Array, width: number, height: number): Uint8Array {
   const rawBuffer = webp_to_raw(buffer, width, height);
-  return new Uint8Array(rawBuffer.buffer);
+  return rawBuffer;
 }
 
 export function rawToPng(buffer: Uint8Array, width: number, height: number): Uint8Array {
   const pngBuffer = raw_to_png(buffer, width, height);
-  return new Uint8Array(pngBuffer.buffer);
+  return pngBuffer;
 }
 
 export function pngToRaw(buffer: Uint8Array, width: number, height: number): Uint8Array {
   const rawBuffer = png_to_raw(buffer, width, height);
-  return new Uint8Array(rawBuffer.buffer);
+  return rawBuffer;
 }
