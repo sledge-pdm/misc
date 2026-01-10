@@ -1,23 +1,30 @@
 {
   "name": "@sledge-pdm/core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": false,
   "type": "module",
   "sideEffects": true,
   "exports": {
     ".": "./index.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/pako": "^2.0.4",
+    "pako": "^2.1.0",
+    "webp-wasm": "^1.0.6"
+  },
   "devDependencies": {
+    "@vitest/browser-playwright": "^4.0.16",
+    "playwright": "^1.57.0",
     "prettier": "^3.7.4",
-    "prettier-plugin-organize-imports": "^4.3.0"
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "vitest": "^4.0.16"
   },
   "scripts": {
     "dev": "",
     "build": "",
     "prettier": "prettier --write . --config .prettierrc",
     "format": "pnpm prettier",
-    "wasm:build": "wasm-pack build ./src/wasm --target bundler && rm ./src/wasm/pkg/.gitignore && rm ./src/wasm/pkg/package.json"
+    "test": "vitest run -c ./vitest.config.ts"
   },
   "publishConfig": {
     "access": "public",

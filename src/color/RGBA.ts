@@ -16,7 +16,7 @@ export function hexWithSharpToRGBA(hex: string): RGBA {
   const g = parseInt(hex.slice(3, 5), 16);
   const b = parseInt(hex.slice(5, 7), 16);
   let a = parseInt(hex.slice(7, 9), 16);
-  if (!a) a = 255;
+  if (isNaN(a)) a = 255;
   return [r, g, b, a];
 }
 
