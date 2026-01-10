@@ -9,3 +9,5 @@ target
 *.md
 
 pnpm-lock.yaml
+
+wasm

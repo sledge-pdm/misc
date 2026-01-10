@@ -1,50 +1,32 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
-vi.mock('webp-wasm', () => {
-  return {
-    encode: vi.fn(async (imageData: { data: Uint8ClampedArray }) => {
-      return new Uint8Array(imageData.data);
-    }),
-    decode: vi.fn(async (_buffer: Uint8Array) => {
-      return { data: new Uint8ClampedArray([7, 8, 9, 10]) };
-    }),
-  };
-});
-
-import { decode, encode } from 'webp-wasm';
-import { decodeWebp, encodeWebp } from '../../index';
+import { decodeWebp, encodeWebp, initWebp } from '../../index';
 
 describe('webp encode/decode', () => {
-  it('encodes from the provided view', async () => {
-    vi.stubGlobal(
-      'ImageData',
-      class {
-        data: Uint8ClampedArray;
-        width: number;
-        height: number;
-        constructor(data: Uint8ClampedArray, width: number, height: number) {
-          this.data = data;
-          this.width = width;
-          this.height = height;
-        }
-      }
-    );
-
-    const base = new Uint8ClampedArray([9, 9, 1, 2, 3, 4, 9, 9]);
-    const slice = base.subarray(2, 6);
-    const encoded = await encodeWebp(slice, 1, 1);
-
-    expect(encoded).toBeInstanceOf(Uint8Array);
-    expect(Array.from(encoded)).toEqual([1, 2, 3, 4]);
-    expect(encode).toHaveBeenCalledTimes(1);
+  beforeAll(async () => {
+    await initWebp();
   });
 
-  it('decodes to raw buffer', async () => {
-    const input = new Uint8Array([1, 2, 3]);
-    const decoded = await decodeWebp(input);
+  it('encodes to webp bytes (RIFF/WebP header)', () => {
+    const base = new Uint8ClampedArray([9, 9, 1, 2, 3, 4, 9, 9]);
+    const slice = base.subarray(2, 6);
+    const encoded = encodeWebp(slice, 1, 1);
+    expect(encoded).toBeInstanceOf(Uint8Array);
+    expect(encoded.byteLength).toBeGreaterThan(0);
+    const header = String.fromCharCode(...encoded.slice(0, 4));
+    const format = String.fromCharCode(...encoded.slice(8, 12));
+    expect(header).toBe('RIFF');
+    expect(format).toBe('WEBP');
+  });
+
+  it('decodes encoded bytes back to raw buffer', () => {
+    const width = 2;
+    const height = 1;
+    const input = new Uint8ClampedArray([255, 0, 0, 255, 0, 255, 0, 255]);
+    const encoded = encodeWebp(input, width, height);
+    const decoded = decodeWebp(encoded);
 
     expect(decoded).toBeInstanceOf(Uint8ClampedArray);
-    expect(Array.from(decoded)).toEqual([7, 8, 9, 10]);
-    expect(decode).toHaveBeenCalledWith(input);
+    expect(decoded.byteLength).toBe(width * height * 4);
   });
 });

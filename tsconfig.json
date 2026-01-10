@@ -7,7 +7,11 @@
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDir": ".",
+    "paths": {
+      "@libwebp": ["./wasm/libwebp/libwebp.js"]
+    }
   },
   "include": ["index.ts", "src/**/*", "test"],
   "exclude": ["dist", "node_modules"]
