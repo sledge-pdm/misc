@@ -1,4 +1,4 @@
-import WebPModuleImport from '@libwebp';
+import WebPModuleImport from '../../wasm/libwebp/libwebp';
 import { RawPixelData, toUint8Array } from './RawPixelData';
 
 type WebPModuleFactory = (options?: { locateFile?: (path: string) => string }) => Promise<WebPModuleInstance>;
