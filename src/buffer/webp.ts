@@ -16,18 +16,27 @@ const WebPModule = ((WebPModuleImport as unknown as { default?: WebPModuleFactor
 let modulePromise: Promise<WebPModuleInstance> | undefined;
 let moduleInstance: WebPModuleInstance | undefined;
 
-const getModule = () => {
+const defaultLocateFile = (path: string) => new URL(`../../wasm/libwebp/${path}`, import.meta.url).toString();
+
+const createModulePromise = (options?: { locateFile?: (path: string) => string; wasmUrl?: string }) => {
+  const locateFile =
+    options?.locateFile ??
+    (options?.wasmUrl
+      ? (path: string) => (path.endsWith('.wasm') ? options.wasmUrl! : defaultLocateFile(path))
+      : defaultLocateFile);
+  return WebPModule({ locateFile });
+};
+
+const getModule = (options?: { locateFile?: (path: string) => string; wasmUrl?: string }) => {
   if (!modulePromise) {
-    modulePromise = WebPModule({
-      locateFile: (path: string) => new URL(`../../wasm/libwebp/${path}`, import.meta.url).toString(),
-    });
+    modulePromise = createModulePromise(options);
   }
   return modulePromise;
 };
 
-export async function initWebp(): Promise<void> {
+export async function initWebp(options?: { locateFile?: (path: string) => string; wasmUrl?: string }): Promise<void> {
   if (!moduleInstance) {
-    moduleInstance = await getModule();
+    moduleInstance = await getModule(options);
   }
 }
 
