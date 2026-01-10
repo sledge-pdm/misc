@@ -21,9 +21,7 @@ const defaultLocateFile = (path: string) => new URL(`../../wasm/libwebp/${path}`
 const createModulePromise = (options?: { locateFile?: (path: string) => string; wasmUrl?: string }) => {
   const locateFile =
     options?.locateFile ??
-    (options?.wasmUrl
-      ? (path: string) => (path.endsWith('.wasm') ? options.wasmUrl! : defaultLocateFile(path))
-      : defaultLocateFile);
+    (options?.wasmUrl ? (path: string) => (path.endsWith('.wasm') ? options.wasmUrl! : defaultLocateFile(path)) : defaultLocateFile);
   return WebPModule({ locateFile });
 };
 
