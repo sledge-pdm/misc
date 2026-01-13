@@ -45,7 +45,21 @@ export class V0Adapter extends ProjectAdapter<ProjectV0> {
   }
 
   getImagePoolEntries(): ImagePoolEntry[] {
-    return this.project.imagePool;
+    return this.project.imagePool.map((entry) => {
+      return {
+        ...entry,
+        descriptionName: undefined,
+        webpBuffer: new Uint8Array(0),
+        transform: {
+          ...entry.transform,
+          rotation: 0,
+          flipX: false,
+          flipY: false,
+        },
+        opacity: entry.opacity,
+        visible: entry.visible,
+      };
+    });
   }
 
   getImagePoolState(): ImagePoolState {
