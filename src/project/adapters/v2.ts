@@ -5,7 +5,9 @@ import { ProjectAdapter } from './base';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
 import { ImagePool } from './parts/ImagePool';
+import { ImagePoolState } from './parts/ImagePoolState';
 import { Layer } from './parts/Layer';
+import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
 import { SnapshotPart } from './parts/Snapshots';
 
@@ -27,6 +29,12 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
     return toUint8ClampedArray(gzipInflate(buffer.deflatedBuffer));
   }
 
+  getLayerListState(): LayerListState {
+    return {
+      ...this.project.layers.store,
+    };
+  }
+
   getProject(): ProjectPart {
     return {
       ...this.project.project.store,
@@ -38,6 +46,12 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
       entries: this.project.imagePool.store.entries,
       selectedEntryId: this.project.imagePool.store.selectedEntryId,
       preserveAspectRatio: this.project.imagePool.store.preserveAspectRatio,
+    };
+  }
+
+  getImagePoolState(): ImagePoolState {
+    return {
+      ...this.project.imagePool.store,
     };
   }
 

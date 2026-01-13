@@ -4,7 +4,9 @@ import { ProjectV2 } from '../types/ProjectV2';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
 import { ImagePool } from './parts/ImagePool';
+import { ImagePoolState } from './parts/ImagePoolState';
 import { Layer } from './parts/Layer';
+import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
 import { SnapshotPart } from './parts/Snapshots';
 
@@ -20,11 +22,11 @@ export abstract class ProjectAdapter<P extends Project> {
   // basic interface
   abstract getCanvasInfo(): Canvas;
   abstract getLayers(): Layer[];
+  abstract getLayerListState(): LayerListState;
   abstract getRawBufferOf(layerId: string): Uint8ClampedArray | undefined;
   abstract getProject(): ProjectPart;
   abstract getImagePool(): ImagePool;
+  abstract getImagePoolState(): ImagePoolState;
   abstract getHistory(): HistoryStacks;
   abstract getSnapshots(): SnapshotPart;
-
-  // TODO: more interfaces
 }
