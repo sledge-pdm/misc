@@ -130,16 +130,18 @@ export interface ProjectV1 extends ProjectBase {
   };
   snapshots: {
     store: {
-      id: string;
-      name: string;
-      description?: string;
-      createdAt: number;
-      snapshot: ProjectV0 | ProjectV1;
-      thumbnail?: {
-        webpBuffer: Uint8Array;
-        width: number;
-        height: number;
-      };
-    }[];
+      snapshots: {
+        id: string;
+        name: string;
+        description?: string;
+        createdAt: number;
+        snapshot: ProjectV0 | ProjectV1;
+        thumbnail?: {
+          webpBuffer: Uint8Array;
+          width: number;
+          height: number;
+        };
+      }[];
+    };
   };
 }

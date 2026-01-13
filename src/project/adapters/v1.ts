@@ -63,7 +63,7 @@ export class V1Adapter extends ProjectAdapter<ProjectV1> {
   }
 
   getSnapshots(): SnapshotsPart {
-    return this.project.snapshots.store.map((v1Snap) => {
+    return this.project.snapshots.store.snapshots.map((v1Snap) => {
       if (v1Snap.thumbnail) {
         const { webpBuffer, width, height } = v1Snap.thumbnail;
         const rawThumbnailBuffer = decodeWebp(webpBuffer, width, height);
