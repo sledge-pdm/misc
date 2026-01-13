@@ -1,6 +1,6 @@
 {
   "name": "@sledge-pdm/core",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "private": false,
   "type": "module",
   "sideEffects": true,
@@ -27,7 +27,7 @@
     "prettier": "prettier --write . --config .prettierrc",
     "format": "pnpm prettier",
     "test": "vitest run -c ./vitest.config.ts",
-    "wasm:build": "cd wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler && rm pkg/.gitignore && rm pkg/package.json"
+    "wasm:build": "cd src/wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler && rm pkg/.gitignore && rm pkg/package.json"
   },
   "publishConfig": {
     "access": "public",

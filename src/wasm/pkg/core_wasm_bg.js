@@ -27,15 +27,15 @@ function getArrayU8FromWasm0(ptr, len) {
     return getUint8ArrayMemory0().subarray(ptr / 1, ptr / 1 + len);
 }
 /**
- * @param {Uint8Array} webp_buffer
+ * @param {Uint8Array} buffer
  * @param {number} width
  * @param {number} height
  * @returns {Uint8Array}
  */
-export function webp_to_raw(webp_buffer, width, height) {
-    const ptr0 = passArray8ToWasm0(webp_buffer, wasm.__wbindgen_malloc);
+export function raw_to_png(buffer, width, height) {
+    const ptr0 = passArray8ToWasm0(buffer, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.webp_to_raw(ptr0, len0, width, height);
+    const ret = wasm.raw_to_png(ptr0, len0, width, height);
     var v2 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
     return v2;
@@ -57,21 +57,6 @@ export function raw_to_webp(buffer, width, height) {
 }
 
 /**
- * @param {Uint8Array} buffer
- * @param {number} width
- * @param {number} height
- * @returns {Uint8Array}
- */
-export function raw_to_png(buffer, width, height) {
-    const ptr0 = passArray8ToWasm0(buffer, wasm.__wbindgen_malloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.raw_to_png(ptr0, len0, width, height);
-    var v2 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
-    wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
-    return v2;
-}
-
-/**
  * @param {Uint8Array} png_buffer
  * @param {number} _width
  * @param {number} _height
@@ -81,6 +66,21 @@ export function png_to_raw(png_buffer, _width, _height) {
     const ptr0 = passArray8ToWasm0(png_buffer, wasm.__wbindgen_malloc);
     const len0 = WASM_VECTOR_LEN;
     const ret = wasm.png_to_raw(ptr0, len0, _width, _height);
+    var v2 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
+    return v2;
+}
+
+/**
+ * @param {Uint8Array} webp_buffer
+ * @param {number} width
+ * @param {number} height
+ * @returns {Uint8Array}
+ */
+export function webp_to_raw(webp_buffer, width, height) {
+    const ptr0 = passArray8ToWasm0(webp_buffer, wasm.__wbindgen_malloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.webp_to_raw(ptr0, len0, width, height);
     var v2 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
     wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
     return v2;

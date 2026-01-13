@@ -6,6 +6,9 @@ export * from './src/buffer/webp';
 // color
 export * from './src/color/RGBA';
 
+// project
+export * from './src/project';
+
 // typesexport * from './src/types/FileLocation';
 export * from './src/types/Point';
 export * from './src/types/Size';

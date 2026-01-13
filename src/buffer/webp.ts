@@ -1,4 +1,4 @@
-import { raw_to_webp, webp_to_raw } from '../wasm/pkg/frasco_wasm';
+import { raw_to_webp, webp_to_raw } from '../wasm/pkg/core_wasm';
 import { RawPixelData, toUint8Array, toUint8ClampedArray } from './RawPixelData';
 
 export function encodeWebp(rawBuffer: RawPixelData, width: number, height: number): Uint8Array {

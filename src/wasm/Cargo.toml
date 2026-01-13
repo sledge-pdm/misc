@@ -1,13 +1,13 @@
 [package]
-name = "frasco-wasm"
+name = "core-wasm"
 version = "0.0.1"
 authors = ["innsbluck <innsbluck@gmail.com>"]
-description = "wasm module for frasco"
+description = "wasm module for @sledge-pdm/core"
 license = "MIT/Apache-2.0"
 edition = "2021"
 
 [package.metadata.wasm-pack.output]
-name = "@frasco/wasm"
+name = "@core/wasm"
 
 [lib]
 crate-type = ["cdylib"]

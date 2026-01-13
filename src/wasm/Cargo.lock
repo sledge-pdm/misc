@@ -45,6 +45,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2fd1289c04a9ea8cb22300a459a72a385d7c73d3259e2ed7dcb2af674838cfa9"
 
 [[package]]
+name = "core-wasm"
+version = "0.0.1"
+dependencies = [
+ "image",
+ "image-webp",
+ "js-sys",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+]
+
+[[package]]
 name = "crc32fast"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -70,17 +81,6 @@ checksum = "dc5a4e564e38c699f2880d3fda590bedc2e69f3f84cd48b457bd892ce61d0aa9"
 dependencies = [
  "crc32fast",
  "miniz_oxide",
-]
-
-[[package]]
-name = "frasco-wasm"
-version = "0.0.1"
-dependencies = [
- "image",
- "image-webp",
- "js-sys",
- "wasm-bindgen",
- "wasm-bindgen-futures",
 ]
 
 [[package]]
