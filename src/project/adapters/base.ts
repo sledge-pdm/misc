@@ -3,12 +3,12 @@ import { ProjectV1 } from '../types/ProjectV1';
 import { ProjectV2 } from '../types/ProjectV2';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePool } from './parts/ImagePool';
+import { ImagePoolEntry } from './parts/ImagePoolEntry';
 import { ImagePoolState } from './parts/ImagePoolState';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
-import { SnapshotPart } from './parts/Snapshots';
+import { SnapshotsPart } from './parts/Snapshots';
 
 type Project = ProjectV0 | ProjectV1 | ProjectV2;
 
@@ -19,14 +19,13 @@ export abstract class ProjectAdapter<P extends Project> {
     this.project = project;
   }
 
-  // basic interface
   abstract getCanvasInfo(): Canvas;
   abstract getLayers(): Layer[];
   abstract getLayerListState(): LayerListState;
   abstract getRawBufferOf(layerId: string): Uint8ClampedArray | undefined;
-  abstract getProject(): ProjectPart;
-  abstract getImagePool(): ImagePool;
+  abstract getProjectInfo(): ProjectPart;
+  abstract getImagePoolEntries(): ImagePoolEntry[];
   abstract getImagePoolState(): ImagePoolState;
   abstract getHistory(): HistoryStacks;
-  abstract getSnapshots(): SnapshotPart;
+  abstract getSnapshots(): SnapshotsPart;
 }

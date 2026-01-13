@@ -140,6 +140,6 @@ export interface ProjectV1 extends ProjectBase {
         width: number;
         height: number;
       };
-    };
+    }[];
   };
 }

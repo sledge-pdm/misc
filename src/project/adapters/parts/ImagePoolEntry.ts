@@ -8,9 +8,3 @@ export type ImagePoolEntry = {
   originalPath?: string;
   descriptionName?: string;
 };
-
-export type ImagePool = {
-  entries: ImagePoolEntry[];
-  selectedEntryId?: string;
-  preserveAspectRatio?: boolean;
-};

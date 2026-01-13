@@ -4,12 +4,12 @@ import { ProjectV2 } from '../types/ProjectV2';
 import { ProjectAdapter } from './base';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePool } from './parts/ImagePool';
+import { ImagePoolEntry } from './parts/ImagePoolEntry';
 import { ImagePoolState } from './parts/ImagePoolState';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
-import { SnapshotPart } from './parts/Snapshots';
+import { SnapshotsPart } from './parts/Snapshots';
 
 export class V2Adapter extends ProjectAdapter<ProjectV2> {
   getCanvasInfo(): Canvas {
@@ -35,18 +35,14 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
     };
   }
 
-  getProject(): ProjectPart {
+  getProjectInfo(): ProjectPart {
     return {
       ...this.project.project.store,
     };
   }
 
-  getImagePool(): ImagePool {
-    return {
-      entries: this.project.imagePool.store.entries,
-      selectedEntryId: this.project.imagePool.store.selectedEntryId,
-      preserveAspectRatio: this.project.imagePool.store.preserveAspectRatio,
-    };
+  getImagePoolEntries(): ImagePoolEntry[] {
+    return this.project.imagePool.store.entries;
   }
 
   getImagePoolState(): ImagePoolState {
@@ -62,9 +58,7 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
     };
   }
 
-  getSnapshots(): SnapshotPart {
-    return {
-      store: this.project.snapshots.store,
-    };
+  getSnapshots(): SnapshotsPart {
+    return this.project.snapshots;
   }
 }

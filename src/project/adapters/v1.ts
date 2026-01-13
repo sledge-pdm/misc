@@ -1,14 +1,16 @@
+import { gzipDeflate } from '../../buffer/gzip';
+import { toUint8Array } from '../../buffer/RawPixelData';
 import { decodeWebp } from '../../buffer/webp';
 import { ProjectV1 } from '../types/ProjectV1';
 import { ProjectAdapter } from './base';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePool } from './parts/ImagePool';
+import { ImagePoolEntry } from './parts/ImagePoolEntry';
 import { ImagePoolState } from './parts/ImagePoolState';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
-import { SnapshotPart } from './parts/Snapshots';
+import { ProjectSnapshot, SnapshotsPart } from './parts/Snapshots';
 
 export class V1Adapter extends ProjectAdapter<ProjectV1> {
   getCanvasInfo(): Canvas {
@@ -37,18 +39,14 @@ export class V1Adapter extends ProjectAdapter<ProjectV1> {
     };
   }
 
-  getProject(): ProjectPart {
+  getProjectInfo(): ProjectPart {
     return {
       ...this.project.project.store,
     };
   }
 
-  getImagePool(): ImagePool {
-    return {
-      entries: this.project.imagePool.store.entries,
-      selectedEntryId: this.project.imagePool.store.selectedEntryId,
-      preserveAspectRatio: this.project.imagePool.store.preserveAspectRatio,
-    };
+  getImagePoolEntries(): ImagePoolEntry[] {
+    return this.project.imagePool.store.entries;
   }
 
   getImagePoolState(): ImagePoolState {
@@ -64,9 +62,26 @@ export class V1Adapter extends ProjectAdapter<ProjectV1> {
     };
   }
 
-  getSnapshots(): SnapshotPart {
-    return {
-      store: this.project.snapshots.store,
-    };
+  getSnapshots(): SnapshotsPart {
+    return this.project.snapshots.store.map((v1Snap) => {
+      if (v1Snap.thumbnail) {
+        const { webpBuffer, width, height } = v1Snap.thumbnail;
+        const rawThumbnailBuffer = decodeWebp(webpBuffer, width, height);
+        const deflated = toUint8Array(gzipDeflate(rawThumbnailBuffer));
+        return {
+          ...v1Snap,
+          thumbnail: {
+            packedBuffer: deflated,
+            width,
+            height,
+          },
+        } as ProjectSnapshot;
+      } else {
+        return {
+          ...v1Snap,
+          thumbnail: undefined,
+        };
+      }
+    });
   }
 }

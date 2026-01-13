@@ -132,17 +132,15 @@ export interface ProjectV2 extends ProjectBase {
     redoStack: SerializedHistoryAction[];
   };
   snapshots: {
-    store: {
-      id: string;
-      name: string;
-      description?: string;
-      createdAt: number;
-      snapshot: ProjectV0 | ProjectV1 | ProjectV2;
-      thumbnail?: {
-        packedBuffer: Uint8Array;
-        width: number;
-        height: number;
-      };
+    id: string;
+    name: string;
+    description?: string;
+    createdAt: number;
+    snapshot: ProjectV0 | ProjectV1 | ProjectV2;
+    thumbnail?: {
+      packedBuffer: Uint8Array;
+      width: number;
+      height: number;
     };
-  };
+  }[];
 }
