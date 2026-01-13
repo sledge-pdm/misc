@@ -1,12 +1,8 @@
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { decodeWebp, encodeWebp, initWebp } from '../../index';
+import { decodeWebp, encodeWebp } from '../../index';
 
 describe('webp encode/decode', () => {
-  beforeAll(async () => {
-    await initWebp();
-  });
-
   it('encodes to webp bytes (RIFF/WebP header)', () => {
     const base = new Uint8ClampedArray([9, 9, 1, 2, 3, 4, 9, 9]);
     const slice = base.subarray(2, 6);
@@ -24,7 +20,7 @@ describe('webp encode/decode', () => {
     const height = 1;
     const input = new Uint8ClampedArray([255, 0, 0, 255, 0, 255, 0, 255]);
     const encoded = encodeWebp(input, width, height);
-    const decoded = decodeWebp(encoded);
+    const decoded = decodeWebp(encoded, width, height);
 
     expect(decoded).toBeInstanceOf(Uint8ClampedArray);
     expect(decoded.byteLength).toBe(width * height * 4);

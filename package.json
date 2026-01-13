@@ -1,12 +1,11 @@
 {
   "name": "@sledge-pdm/core",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "private": false,
   "type": "module",
   "sideEffects": true,
   "exports": {
-    ".": "./index.ts",
-    "./wasm/libwebp/libwebp.wasm": "./wasm/libwebp/libwebp.wasm"
+    ".": "./index.ts"
   },
   "dependencies": {
     "@types/pako": "^2.0.4",
@@ -27,7 +26,8 @@
     "build": "",
     "prettier": "prettier --write . --config .prettierrc",
     "format": "pnpm prettier",
-    "test": "vitest run -c ./vitest.config.ts"
+    "test": "vitest run -c ./vitest.config.ts",
+    "wasm:build": "cd wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler && rm pkg/.gitignore && rm pkg/package.json"
   },
   "publishConfig": {
     "access": "public",
