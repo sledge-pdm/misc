@@ -79,50 +79,58 @@ type ImagePoolEntry = {
   visible: boolean;
 };
 
+interface ProjectSnapshot {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: number;
+  snapshot: ProjectV0 | ProjectV1 | ProjectV2;
+  thumbnail?: {
+    packedBuffer: Uint8Array;
+    width: number;
+    height: number;
+  };
+}
+
 /**
  *  Present project format.
  */
 export interface ProjectV2 extends ProjectBase {
   canvas: {
-    store: {
-      canvas: Size2D;
-    };
+    size: Size2D;
   };
   layers: {
-    store: {
-      layers: Layer[];
-      baseLayer: BaseLayer;
-      activeLayerId: string;
-      selectionEnabled: boolean;
-      selected: Set<string>;
-      isImagePoolActive: boolean;
-    };
+    layers: Layer[];
     buffers: Map<
       string, // layer id
       {
         deflatedBuffer: Uint8Array; // deflate compressed buffer
       }
     >;
-  };
-  project: {
-    store: {
-      loadProjectVersion?: {
-        sledge: string; // semver
-        project: number; // VX
-      };
-
-      thumbnailPath: string | undefined;
-      isProjectChangedAfterSave: boolean;
-      lastSavedPath: string | undefined;
-      lastSavedAt: Date | undefined;
-
-      autoSnapshotEnabled?: boolean;
-      autoSnapshotInterval?: number; // in seconds
+    state: {
+      baseLayer: BaseLayer;
+      activeLayerId: string;
+      selectionEnabled: boolean;
+      selected: Set<string>;
+      isImagePoolActive: boolean;
     };
   };
+  project: {
+    loadProjectVersion?: {
+      sledge: string; // semver
+      project: number; // Vx
+    };
+    thumbnailPath: string | undefined;
+    isProjectChangedAfterSave: boolean;
+    lastSavedPath: string | undefined;
+    lastSavedAt: Date | undefined;
+
+    autoSnapshotEnabled?: boolean;
+    autoSnapshotInterval?: number; // in seconds
+  };
   imagePool: {
-    store: {
-      entries: ImagePoolEntry[];
+    entries: ImagePoolEntry[];
+    state: {
       selectedEntryId: string | undefined;
       preserveAspectRatio: boolean;
     };
@@ -131,16 +139,5 @@ export interface ProjectV2 extends ProjectBase {
     undoStack: SerializedHistoryAction[];
     redoStack: SerializedHistoryAction[];
   };
-  snapshots: {
-    id: string;
-    name: string;
-    description?: string;
-    createdAt: number;
-    snapshot: ProjectV0 | ProjectV1 | ProjectV2;
-    thumbnail?: {
-      packedBuffer: Uint8Array;
-      width: number;
-      height: number;
-    };
-  }[];
+  snapshots: ProjectSnapshot[];
 }

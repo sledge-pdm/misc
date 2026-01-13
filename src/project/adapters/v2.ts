@@ -13,13 +13,11 @@ import { SnapshotsPart } from './parts/Snapshots';
 
 export class V2Adapter extends ProjectAdapter<ProjectV2> {
   getCanvasInfo(): Canvas {
-    return {
-      size: this.project.canvas.store.canvas,
-    };
+    return this.project.canvas;
   }
 
   getLayers(): Layer[] {
-    return this.project.layers.store.layers;
+    return this.project.layers.layers;
   }
 
   getRawBufferOf(layerId: string): Uint8ClampedArray | undefined {
@@ -31,23 +29,23 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
 
   getLayerListState(): LayerListState {
     return {
-      ...this.project.layers.store,
+      ...this.project.layers.state,
     };
   }
 
   getProjectInfo(): ProjectPart {
     return {
-      ...this.project.project.store,
+      ...this.project.project,
     };
   }
 
   getImagePoolEntries(): ImagePoolEntry[] {
-    return this.project.imagePool.store.entries;
+    return this.project.imagePool.entries;
   }
 
   getImagePoolState(): ImagePoolState {
     return {
-      ...this.project.imagePool.store,
+      ...this.project.imagePool.state,
     };
   }
 
