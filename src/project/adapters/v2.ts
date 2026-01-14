@@ -40,7 +40,8 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
   }
 
   getImagePoolEntries(): ImagePoolEntry[] {
-    return this.project.imagePool.entries;
+    const entries = this.project.imagePool.entries;
+    return Array.isArray(entries) ? entries : [];
   }
 
   getImagePoolState(): ImagePoolState {

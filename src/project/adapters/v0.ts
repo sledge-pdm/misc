@@ -50,7 +50,9 @@ export class V0Adapter extends ProjectAdapter<ProjectV0> {
   }
 
   getImagePoolEntries(): ImagePoolEntry[] {
-    return this.project.imagePool.map((entry) => {
+    const entries = this.project.imagePool;
+    if (!Array.isArray(entries)) return [];
+    return entries.map((entry) => {
       return {
         ...entry,
         descriptionName: undefined,
