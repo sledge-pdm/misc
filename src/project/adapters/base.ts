@@ -17,21 +17,14 @@ export abstract class ProjectAdapter<P extends ProjectBase> {
 
   abstract ADAPTER_PROJECT_VERSION: number;
 
-  getVersions():
-    | {
-        sledge: string;
-        project: number;
-      }
-    | undefined {
-    if (this.project.version && this.project.projectVersion) {
-      return {
-        sledge: this.project.version,
-        project: this.project.projectVersion,
-      };
-    } else {
-      // Avoid pretending that projectVersion = this.ADAPTER_PROJECT_VERSION
-      return undefined;
-    }
+  getVersions(): {
+    sledge?: string;
+    project?: number;
+  } {
+    return {
+      sledge: this.project.version ?? undefined,
+      project: this.project.projectVersion ?? undefined,
+    };
   }
 
   abstract getCanvasInfo(): Canvas;

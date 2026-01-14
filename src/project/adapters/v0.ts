@@ -13,12 +13,10 @@ export class V0Adapter extends ProjectAdapter<ProjectV0> {
   ADAPTER_PROJECT_VERSION = 0;
 
   // override getVersions because V0 project doesn't have versions signature
-  getVersions():
-    | {
-        sledge: string;
-        project: number;
-      }
-    | undefined {
+  getVersions(): {
+    sledge?: string;
+    project?: number;
+  } {
     return {
       // pretend 0.0.12 (known latest V0 version)
       sledge: '0.0.12',
