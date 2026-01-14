@@ -41,6 +41,11 @@ export class V0Adapter extends ProjectAdapter<ProjectV0> {
     return {
       ...this.project.projectStore,
       lastSavedPath: undefined,
+      // V0 don't have version signature so fallback
+      loadProjectVersion: {
+        sledge: '0.0.12',
+        project: 0,
+      },
     };
   }
 
