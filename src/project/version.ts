@@ -14,11 +14,6 @@ export function getProjectVersion(project: ProjectBase): number {
     return 0;
   }
 
-  // Legacy V1 files may miss "version" (semver). Treat as V0 to match develop behavior.
-  if (projectVersion === 1 && !project.version) {
-    return 0;
-  }
-
   return projectVersion;
 }
 

@@ -13,6 +13,8 @@ import { ProjectPart } from './parts/Project';
 import { ProjectSnapshot, SnapshotsPart } from './parts/Snapshots';
 
 export class V1Adapter extends ProjectAdapter<ProjectV1> {
+  ADAPTER_PROJECT_VERSION = 1;
+
   getCanvasInfo(): Canvas {
     return {
       size: this.project.canvas.store.canvas,

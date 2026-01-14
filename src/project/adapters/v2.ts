@@ -12,6 +12,8 @@ import { ProjectPart } from './parts/Project';
 import { SnapshotsPart } from './parts/Snapshots';
 
 export class V2Adapter extends ProjectAdapter<ProjectV2> {
+  ADAPTER_PROJECT_VERSION = 2;
+
   getCanvasInfo(): Canvas {
     return this.project.canvas;
   }

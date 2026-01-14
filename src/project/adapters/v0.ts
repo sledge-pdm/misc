@@ -10,6 +10,22 @@ import { ProjectPart } from './parts/Project';
 import { SnapshotsPart } from './parts/Snapshots';
 
 export class V0Adapter extends ProjectAdapter<ProjectV0> {
+  ADAPTER_PROJECT_VERSION = 0;
+
+  // override getVersions because V0 project doesn't have versions signature
+  getVersions():
+    | {
+        sledge: string;
+        project: number;
+      }
+    | undefined {
+    return {
+      // pretend 0.0.12 (known latest V0 version)
+      sledge: '0.0.12',
+      project: 0,
+    };
+  }
+
   getCanvasInfo(): Canvas {
     return {
       size: this.project.canvasStore.canvas,
@@ -41,11 +57,6 @@ export class V0Adapter extends ProjectAdapter<ProjectV0> {
     return {
       ...this.project.projectStore,
       lastSavedPath: undefined,
-      // V0 don't have version signature so fallback
-      loadProjectVersion: {
-        sledge: '0.0.12',
-        project: 0,
-      },
     };
   }
 

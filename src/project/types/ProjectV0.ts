@@ -58,6 +58,8 @@ type ImagePoolEntry = {
  *  !!!DO NOT MODIFY THIS INTERFACE FOR USERS COMPATIBILITY!!!
  */
 export interface ProjectV0 extends ProjectBase {
+  // V0 don't have version signature (will be fallbacked by V0Adapter)
+  loadProjectVersion: undefined;
   canvasStore: {
     canvas: Size2D;
   };

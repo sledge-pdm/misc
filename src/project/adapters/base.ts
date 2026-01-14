@@ -1,6 +1,4 @@
-import { ProjectV0 } from '../types/ProjectV0';
-import { ProjectV1 } from '../types/ProjectV1';
-import { ProjectV2 } from '../types/ProjectV2';
+import { ProjectBase } from '../types';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
 import { ImagePoolEntry } from './parts/ImagePoolEntry';
@@ -10,13 +8,30 @@ import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
 import { SnapshotsPart } from './parts/Snapshots';
 
-type Project = ProjectV0 | ProjectV1 | ProjectV2;
-
-export abstract class ProjectAdapter<P extends Project> {
+export abstract class ProjectAdapter<P extends ProjectBase> {
   protected project: P;
 
   constructor(project: P) {
     this.project = project;
+  }
+
+  abstract ADAPTER_PROJECT_VERSION: number;
+
+  getVersions():
+    | {
+        sledge: string;
+        project: number;
+      }
+    | undefined {
+    if (this.project.version && this.project.projectVersion) {
+      return {
+        sledge: this.project.version,
+        project: this.project.projectVersion,
+      };
+    } else {
+      // Avoid pretending that projectVersion = this.ADAPTER_PROJECT_VERSION
+      return undefined;
+    }
   }
 
   abstract getCanvasInfo(): Canvas;

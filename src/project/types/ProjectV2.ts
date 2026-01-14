@@ -116,12 +116,7 @@ export interface ProjectV2 extends ProjectBase {
     };
   };
   project: {
-    loadProjectVersion?: {
-      sledge: string; // semver
-      project: number; // Vx
-    };
     thumbnailPath: string | undefined;
-    isProjectChangedAfterSave: boolean;
     lastSavedPath: string | undefined;
     lastSavedAt: Date | undefined;
 
