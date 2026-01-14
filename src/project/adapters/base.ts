@@ -1,8 +1,7 @@
 import { ProjectBase } from '../types';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePoolEntry } from './parts/ImagePoolEntry';
-import { ImagePoolState } from './parts/ImagePoolState';
+import { ImagePoolEntry, ImagePoolImage, ImagePoolState } from './parts/ImagePool';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
@@ -33,6 +32,7 @@ export abstract class ProjectAdapter<P extends ProjectBase> {
   abstract getRawBufferOf(layerId: string): Uint8ClampedArray | undefined;
   abstract getProjectInfo(): ProjectPart;
   abstract getImagePoolEntries(): ImagePoolEntry[];
+  abstract getImagePoolImageOf(entryId: string): ImagePoolImage | undefined;
   abstract getImagePoolState(): ImagePoolState;
   abstract getHistory(): HistoryStacks;
   abstract getSnapshots(): SnapshotsPart;

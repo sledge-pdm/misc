@@ -25,6 +25,7 @@ describe('v0 project io', () => {
     expect(entry0).toBeDefined();
     expect(entry0.base.width).toBe(765);
     expect(entry0.base.height).toBe(928);
+    expect(adapter.getImagePoolImageOf(entry0.id)).toBeDefined;
   });
 
   it('sledgechan', async () => {

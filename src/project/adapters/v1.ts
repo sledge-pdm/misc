@@ -5,8 +5,7 @@ import { ProjectV1 } from '../types/ProjectV1';
 import { ProjectAdapter } from './base';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePoolEntry } from './parts/ImagePoolEntry';
-import { ImagePoolState } from './parts/ImagePoolState';
+import { ImagePoolEntry, ImagePoolImage, ImagePoolState } from './parts/ImagePool';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
@@ -50,6 +49,16 @@ export class V1Adapter extends ProjectAdapter<ProjectV1> {
   getImagePoolEntries(): ImagePoolEntry[] {
     const entries = this.project.imagePool.store.entries;
     return Array.isArray(entries) ? entries : [];
+  }
+
+  getImagePoolImageOf(entryId: string): ImagePoolImage | undefined {
+    const entry = this.project.imagePool.store.entries.find((e) => e.id === entryId);
+    if (!entry) return undefined;
+    const rawBuffer = decodeWebp(entry.webpBuffer, entry.base.width, entry.base.height);
+    return {
+      deflatedBuffer: gzipDeflate(rawBuffer),
+      mimeType: 'image/webp',
+    };
   }
 
   getImagePoolState(): ImagePoolState {

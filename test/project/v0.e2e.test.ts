@@ -15,5 +15,6 @@ describe('v0 project io', () => {
     expect(adapter?.getCanvasInfo().size.width).toBe(1024);
     expect(adapter?.getCanvasInfo().size.height).toBe(1024);
     expect(adapter?.getLayers().length).toBe(3);
+    
   });
 });

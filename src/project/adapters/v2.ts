@@ -4,8 +4,7 @@ import { ProjectV2 } from '../types/ProjectV2';
 import { ProjectAdapter } from './base';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePoolEntry } from './parts/ImagePoolEntry';
-import { ImagePoolState } from './parts/ImagePoolState';
+import { ImagePoolEntry, ImagePoolImage, ImagePoolState } from './parts/ImagePool';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
@@ -44,6 +43,10 @@ export class V2Adapter extends ProjectAdapter<ProjectV2> {
   getImagePoolEntries(): ImagePoolEntry[] {
     const entries = this.project.imagePool.entries;
     return Array.isArray(entries) ? entries : [];
+  }
+
+  getImagePoolImageOf(entryId: string): ImagePoolImage | undefined {
+    return this.project.imagePool.images.get(entryId);
   }
 
   getImagePoolState(): ImagePoolState {

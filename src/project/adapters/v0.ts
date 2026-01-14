@@ -2,8 +2,7 @@ import { ProjectV0 } from '../types/ProjectV0';
 import { ProjectAdapter } from './base';
 import { Canvas } from './parts/Canvas';
 import { HistoryStacks } from './parts/History';
-import { ImagePoolEntry } from './parts/ImagePoolEntry';
-import { ImagePoolState } from './parts/ImagePoolState';
+import { ImagePoolEntry, ImagePoolImage, ImagePoolState } from './parts/ImagePool';
 import { Layer } from './parts/Layer';
 import { LayerListState } from './parts/LayerListState';
 import { ProjectPart } from './parts/Project';
@@ -76,6 +75,11 @@ export class V0Adapter extends ProjectAdapter<ProjectV0> {
         visible: entry.visible,
       };
     });
+  }
+
+  // V0 handles image resource with raw path so just dispose it
+  getImagePoolImageOf(_entryId: string): ImagePoolImage | undefined {
+    return undefined;
   }
 
   getImagePoolState(): ImagePoolState {
