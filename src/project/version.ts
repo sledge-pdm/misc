@@ -7,18 +7,22 @@ import { ProjectV0 } from './types/ProjectV0';
 import { ProjectV1 } from './types/ProjectV1';
 import { ProjectV2 } from './types/ProjectV2';
 
-export function getProjectVersion(project: ProjectV0 | ProjectBase): number {
-  // @ts-expect-error V0 fallback
+export function getProjectVersion(project: ProjectBase): number {
   const projectVersion: number | undefined = project.projectVersion;
 
   if (projectVersion === undefined) {
     return 0;
-  } else {
-    return projectVersion;
   }
+
+  // Legacy V1 files may miss "version" (semver). Treat as V0 to match develop behavior.
+  if (projectVersion === 1 && !project.version) {
+    return 0;
+  }
+
+  return projectVersion;
 }
 
-export function getProjectAdapter(project: ProjectV0 | ProjectBase): ProjectAdapter<any> | undefined {
+export function getProjectAdapter(project: ProjectBase): ProjectAdapter<any> | undefined {
   const projectVersion = getProjectVersion(project);
 
   switch (projectVersion) {

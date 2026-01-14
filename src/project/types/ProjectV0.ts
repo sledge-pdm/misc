@@ -1,4 +1,5 @@
 import { Size2D } from '../../types/Size';
+import { ProjectBase } from './base';
 
 // ProjectV0 Structure
 // refer commit 5262df7 for more info
@@ -56,7 +57,7 @@ type ImagePoolEntry = {
  *  @deprecated ProjectV0 was used in sledge <= 0.0.12.
  *  !!!DO NOT MODIFY THIS INTERFACE FOR USERS COMPATIBILITY!!!
  */
-export interface ProjectV0 {
+export interface ProjectV0 extends ProjectBase {
   canvasStore: {
     canvas: Size2D;
   };
