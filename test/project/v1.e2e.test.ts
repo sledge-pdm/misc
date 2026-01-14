@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import { gzipInflate } from '../../src/buffer/gzip';
+import { decodeWebp } from '../../src/buffer/webp';
 import { getProjectAdapter, getProjectVersion } from '../../src/project';
 import { loadAndUnpackProject, projectCommonCheck } from './utils';
 
@@ -25,7 +27,14 @@ describe('v0 project io', () => {
     expect(entry0).toBeDefined();
     expect(entry0.base.width).toBe(765);
     expect(entry0.base.height).toBe(928);
-    expect(adapter.getImagePoolImageOf(entry0.id)).toBeDefined;
+    const image0 = adapter.getImagePoolImageOf(entry0.id);
+    expect(image0).toBeDefined();
+    expect(image0?.deflatedBuffer).toBeDefined();
+    if (image0?.deflatedBuffer) {
+      const inflated = gzipInflate(image0.deflatedBuffer);
+      const inflatedRaw = decodeWebp(inflated, entry0.base.width, entry0.base.height);
+      expect(inflatedRaw.length).toBe(entry0.base.width * entry0.base.height * 4);
+    }
   });
 
   it('sledgechan', async () => {

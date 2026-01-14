@@ -54,9 +54,8 @@ export class V1Adapter extends ProjectAdapter<ProjectV1> {
   getImagePoolImageOf(entryId: string): ImagePoolImage | undefined {
     const entry = this.project.imagePool.store.entries.find((e) => e.id === entryId);
     if (!entry) return undefined;
-    const rawBuffer = decodeWebp(entry.webpBuffer, entry.base.width, entry.base.height);
     return {
-      deflatedBuffer: gzipDeflate(rawBuffer),
+      deflatedBuffer: gzipDeflate(entry.webpBuffer),
       mimeType: 'image/webp',
     };
   }
