@@ -9,7 +9,8 @@ export * from './src/color/RGBA';
 // project
 export * from './src/project';
 
-// typesexport * from './src/types/FileLocation';
+// types
+export * from './src/types/FileLocation';
 export * from './src/types/Point';
 export * from './src/types/Size';
 export * from './src/types/Vector';

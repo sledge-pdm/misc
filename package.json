@@ -4,8 +4,13 @@
   "private": false,
   "type": "module",
   "sideEffects": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "dependencies": {
     "@types/pako": "^2.0.4",
@@ -18,18 +23,23 @@
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "prettier-plugin-organize-imports": "^4.3.0",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.9.3",
     "vite-plugin-top-level-await": "^1.6.0",
     "vite-plugin-wasm": "^3.5.0",
     "vitest": "^4.0.16"
   },
   "scripts": {
     "dev": "",
-    "build": "",
+    "build": "pnpm exec tsc -p tsconfig.build.json && pnpm exec tsc-alias -p tsconfig.build.json",
     "prettier": "prettier --write . --config .prettierrc",
     "format": "pnpm prettier",
     "test": "vitest run -c ./vitest.config.ts",
     "wasm:build": "cd src/wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler && rm pkg/.gitignore && rm pkg/package.json"
   },
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/"
