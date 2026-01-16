@@ -20,4 +20,4 @@ export * from './src/versions/Release';
 export * from './src/versions/versions';
 
 // StyleUtils
-export * from './src/StyleUtils';
+export * from './src/utils/StyleUtils';
