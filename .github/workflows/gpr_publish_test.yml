@@ -37,12 +37,12 @@ jobs:
       - name: Build wasm-pack package for dist
         run: cd src/wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler --out-dir ../../dist/src/wasm/pkg --out-name core_wasm
 
-      - name: Show workspace Tree
+      - name: Show dist Tree
         uses: jaywcjlove/github-action-folder-tree@main
         with:
           exclude: 'node_modules|.git'
-          path: .
-          depth: 3
+          path: ./dist
+          depth: 4
 
       # Just checking
       # - run: pnpm publish --no-git-checks
