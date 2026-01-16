@@ -1,0 +1,49 @@
+name: test-publish-gpr
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: '@sledge-pdm'
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - uses: jetli/wasm-pack-action@v0.4.0
+        with:
+          version: 'latest'
+
+      - run: pnpm run build
+
+      - name: Build wasm-pack package for dist
+        run: cd src/wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler --out-dir ../../dist/src/wasm/pkg --out-name core_wasm
+
+      - name: Show workspace tree
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tree
+          tree -a -I "node_modules|.git" .
+
+      # Just checking
+      # - run: pnpm publish --no-git-checks
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
