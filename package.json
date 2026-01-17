@@ -31,7 +31,7 @@
   },
   "scripts": {
     "dev": "",
-    "build": "pnpm exec tsc -p tsconfig.build.json && pnpm exec tsc-alias -p tsconfig.build.json",
+    "build": "pnpm run wasm:build && pnpm exec tsc -p tsconfig.build.json && pnpm exec tsc-alias -p tsconfig.build.json && node ./scripts/copy-wasm.mjs",
     "prettier": "prettier --write . --config .prettierrc",
     "format": "pnpm prettier",
     "test": "vitest run -c ./vitest.config.ts",

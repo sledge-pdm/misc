@@ -34,9 +34,6 @@ jobs:
 
       - run: pnpm run build
 
-      - name: Build wasm-pack package for dist
-        run: cd src/wasm && pnpm --ignore-workspace i && wasm-pack build --target bundler --out-dir ../../dist/src/wasm/pkg --out-name core_wasm
-
       - run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
